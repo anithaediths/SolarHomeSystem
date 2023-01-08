@@ -16,26 +16,32 @@ public class Utility {
 
     public static void calculateCommunityPowerRequirements(SolarPanelContext solarPanelContext) {
         calculateSubCommunityPowerRequirements(solarPanelContext);
+
         BigInteger oneK = new BigInteger(String.valueOf(THOUSAND));
-        BigInteger totalPowerForCommunityInWatts = solarPanelContext.getTotalPowerForCommunityInKW().toBigInteger().multiply(oneK);
+        BigInteger totalPowerForCommunityInWatts = solarPanelContext.getTotalPowerForCommunityInKW()
+                .toBigInteger().multiply(oneK);
         solarPanelContext.setTotalPowerForCommunityInWatts(totalPowerForCommunityInWatts);
 
-        int stockRangeForSolarPanel = SolarPanelSpecs.valueOf(solarPanelContext.getSolarPanelSize()).stockRange;
-        BigInteger stockRangeForSolarPanelB = new BigInteger(String.valueOf(stockRangeForSolarPanel));
-        BigInteger totalPanelsForCommunityB = solarPanelContext.getTotalPowerForCommunityInWatts().divide(stockRangeForSolarPanelB);
-        int totalNumberOfHomes = solarPanelContext.getSubCommunities().stream().mapToInt(SubCommunity::getNumberOfHouses).sum();
-        BigInteger totalNumberOfHomesB = new BigInteger(String.valueOf(totalNumberOfHomes));
-        BigInteger totalPanelsPerHome = totalPanelsForCommunityB.divide(totalNumberOfHomesB);
+        int stockRangeForSolarPanelSize = SolarPanelSpecs.valueOf(solarPanelContext.getSolarPanelSize()).stockRange;
+        BigInteger stockRangeForSolarPanel = new BigInteger(String.valueOf(stockRangeForSolarPanelSize));
+        BigInteger totalPanelsForCommunity = solarPanelContext.getTotalPowerForCommunityInWatts()
+                .divide(stockRangeForSolarPanel);
 
-        solarPanelContext.setTotalPanelsForCommunity(totalPanelsForCommunityB.intValue());
-        solarPanelContext.setTotalPanelsPerHome(totalPanelsPerHome.intValue());
+        int totalNumberOfHomes = solarPanelContext.getSubCommunities().stream()
+                .mapToInt(SubCommunity::getNumberOfHouses).sum();
+        BigInteger totalHomes = new BigInteger(String.valueOf(totalNumberOfHomes));
+        BigInteger panelsPerHome = totalPanelsForCommunity.divide(totalHomes);
+
+        solarPanelContext.setTotalPanelsForCommunity(totalPanelsForCommunity.intValue());
+        solarPanelContext.setTotalPanelsPerHome(panelsPerHome.intValue());
     }
 
     private static void calculateSubCommunityPowerRequirements(SolarPanelContext solarPanelContext) {
         solarPanelContext.getSubCommunities().forEach(subCommunity -> {
             double dailyGeneratedEnergy = subCommunity.getDailyEnergyRequirement() / solarPanelContext.getAverageDurationPerDay();
             double systemEfficiencyFactor = SolarSystemType.valueOf(solarPanelContext.getSystemType()).efficiencyFactor;
-            BigDecimal subCommunityPowerInKW = BigDecimal.valueOf(dailyGeneratedEnergy * subCommunity.getNumberOfHouses() * systemEfficiencyFactor);
+            double subCommunityPower = dailyGeneratedEnergy * subCommunity.getNumberOfHouses() * systemEfficiencyFactor;
+            BigDecimal subCommunityPowerInKW = BigDecimal.valueOf(subCommunityPower);
             BigDecimal totalPowerForCommunity = solarPanelContext.getTotalPowerForCommunityInKW();
             totalPowerForCommunity = totalPowerForCommunity.add(subCommunityPowerInKW);
             solarPanelContext.setTotalPowerForCommunityInKW(totalPowerForCommunity);

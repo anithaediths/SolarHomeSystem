@@ -1,5 +1,7 @@
 package com.example.geektrust.model;
 
+import com.example.geektrust.helper.Constants;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -11,7 +13,7 @@ public class SolarPanelContext {
     private String solarPanelSize;
     private double averageDurationPerDay;
     private List<SubCommunity> subCommunities = new ArrayList<>();
-    private BigDecimal totalPowerForCommunityInKW = new BigDecimal(0);
+    private BigDecimal totalPowerForCommunityInKW = new BigDecimal(Constants.ZERO);
     private BigInteger totalPowerForCommunityInWatts;
     private int totalPanelsForCommunity;
     private List<String> solarPanelOutput;

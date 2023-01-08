@@ -28,5 +28,4 @@ public class SolarProcessor implements IProcessor {
         solarPanelContext.setSolarPanelOutput(solarPanelOutput);
 
     }
-
 }
