@@ -7,6 +7,7 @@ public final class Constants {
     public static final String SPACE = " ";
     public static final String TOTAL_POWER_COMMUNITY_WATTS = "Total Watts Required for the Community (DC): ";
     public static final String TOTAL_NUMBER_OF_PANELS = "Number of Panels Per Home: ";
+
     private Constants() {
     }
 

@@ -10,8 +10,8 @@ public class CommandProcessor {
     private static final int THREE = 3;
     private static final int FOUR = 4;
 
-    private SolarPanelContext solarPanelContext;
-    private IProcessor iProcessor;
+    private final SolarPanelContext solarPanelContext;
+    private final IProcessor iProcessor;
 
     public CommandProcessor() {
         solarPanelContext = new SolarPanelContext();
@@ -28,7 +28,7 @@ public class CommandProcessor {
         return solarPanelContext.getSolarPanelOutput();
     }
 
-    private void processSolarCommunity(List<String> lines) {
+    private void processSolarCommunity(final List<String> lines) {
         lines.remove(Constants.ZERO);
 
         for (String line : lines) {
@@ -36,7 +36,7 @@ public class CommandProcessor {
         }
     }
 
-    private void readSolarCommunityInputs(List<String> lines) {
+    private void readSolarCommunityInputs(final List<String> lines) {
         String firstCommand = lines.get(Constants.ZERO);
         String[] communityDetails = firstCommand.split(Constants.SPACE);
 
