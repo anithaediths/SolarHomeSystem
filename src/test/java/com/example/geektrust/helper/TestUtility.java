@@ -24,7 +24,7 @@ class TestUtility {
         SubCommunity subCommunity2 = new SubCommunity(33, 15);
         solarPanelContext.setSubCommunities(Arrays.asList(subCommunity1, subCommunity2));
         Utility.calculateCommunityPowerRequirements(solarPanelContext);
-        Assertions.assertEquals(186000, solarPanelContext.getTotalPowerForCommunityInWatts());
+        Assertions.assertEquals(186000, solarPanelContext.getTotalPowerForCommunityInWatts().intValue());
         Assertions.assertEquals(676, solarPanelContext.getTotalPanelsForCommunity());
     }
 

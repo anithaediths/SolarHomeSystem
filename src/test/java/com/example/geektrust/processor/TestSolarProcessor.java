@@ -25,7 +25,7 @@ class TestSolarProcessor {
         String subCommunity1 = "AREA1 33 15";
         solarProcessor.processSubCommunityDetails(solarPanelContext, subCommunity1);
         solarProcessor.collateResults(solarPanelContext);
-        Assertions.assertEquals(93000, solarPanelContext.getTotalPowerForCommunityInWatts());
+        Assertions.assertEquals(93000, solarPanelContext.getTotalPowerForCommunityInWatts().intValue());
     }
 
     @Test
@@ -36,6 +36,6 @@ class TestSolarProcessor {
         solarProcessor.processSubCommunityDetails(solarPanelContext, subCommunity1);
         solarProcessor.processSubCommunityDetails(solarPanelContext, subCommunity2);
         solarProcessor.collateResults(solarPanelContext);
-        Assertions.assertEquals(206000, solarPanelContext.getTotalPowerForCommunityInWatts());
+        Assertions.assertEquals(206000, solarPanelContext.getTotalPowerForCommunityInWatts().intValue());
     }
 }
