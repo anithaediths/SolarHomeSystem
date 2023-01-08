@@ -24,10 +24,10 @@ class TestMain {
             "input2.txt,504000,42",
             "input3.txt,1469000,70",
             "input4.txt,190000,22",
-            "input7.txt,36431453000,75314",
-            "input8.txt,666484677000,210739",
-            "input9.txt,5025225839000,235771",
-            "input10.txt,4849948687000,227548"
+            "input5.txt,36431453000,75314",
+            "input6.txt,666484677000,210739",
+            "input7.txt,5025225839000,235771",
+            "input8.txt,4849948687000,227548"
     }
     )
     void testValidInputs(String inputFileName, String totalPowerInWatts, String noOfPanels) throws IOException {
@@ -41,8 +41,8 @@ class TestMain {
 
     @ParameterizedTest
     @CsvSource({
-            "input5.txt",
-            "input6.txt"
+            "input9.txt",
+            "input10.txt"
     }
     )
     void testInValidInputs(String inputFileName) throws IOException {
